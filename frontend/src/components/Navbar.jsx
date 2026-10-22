@@ -11,7 +11,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll + class while the mobile menu is open so the page behind
+  // Lock body scroll while the mobile menu is open so the page behind
   // cannot scroll and collide with the overlay menu.
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -33,14 +33,43 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  function goHome(e) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  function scrollToTarget(href) {
+    if (!href || !href.startsWith("#")) return;
+    const id = href.slice(1);
+
+    // Unlock body first so scroll actually works on mobile
+    document.body.style.overflow = "";
+    document.body.classList.remove("menu-open");
     setMenuOpen(false);
+
+    // Defer scroll until after menu close + reflow
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (id === "home") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
   }
 
-  function handleNavClick() {
-    setMenuOpen(false);
+  function goHome(e) {
+    e.preventDefault();
+    scrollToTarget("#home");
+  }
+
+  function handleNavClick(e) {
+    const href = e.currentTarget.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      e.preventDefault();
+      scrollToTarget(href);
+    } else {
+      setMenuOpen(false);
+    }
   }
 
   return (
