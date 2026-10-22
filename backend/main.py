@@ -37,7 +37,7 @@ from pydantic import BaseModel, EmailStr, Field
 load_dotenv()
 
 app = FastAPI(
-    title="Seyi Qing AI Site API",
+    title="Seyi Code AI Site API",
     description="Chat + contact-form endpoints for the AI systems landing page.",
     version="1.1.0",
 )
@@ -119,7 +119,7 @@ FALLBACK_REPLY = (
 )
 
 SYSTEM_PROMPT = (
-    "You are the website assistant for Seyi Qing, an independent AI "
+    "You are the website assistant for Seyi Code, an independent AI "
     "systems builder who helps small and mid-sized businesses automate "
     "repetitive work with chatbots, voice agents, and automation "
     "systems. Answer questions about services, pricing, and timelines "
