@@ -1,120 +1,141 @@
-# AI Systems Agency — Web App
+# Seyi Code
 
-A production-ready clone/template of a one-person AI automation agency site
-(services, live chatbot demo, pricing, about, contact). Built so you can
-reskin it with your own name, services and pricing in minutes.
+**Independent AI systems builder** — chatbots, voice agents, and automation that take the repetitive work off real businesses.
 
-## Why this stack
+[![Live Site](https://img.shields.io/badge/Live-seyi--qiing.vercel.app-33d1b6?style=flat-square)](https://seyi-qiing.vercel.app)
+[![Stack](https://img.shields.io/badge/Stack-React%20%2B%20FastAPI-12151c?style=flat-square)](#tech-stack)
+[![License](https://img.shields.io/badge/License-Private-9aa2b1?style=flat-square)](#)
 
-| Layer     | Choice                  | Why |
-|-----------|--------------------------|-----|
-| Frontend  | React 18 + Vite          | Fast dev server, no build config headaches, ships as static files you can host anywhere (Vercel, Netlify, S3, GitHub Pages). |
-| Styling   | Plain CSS with CSS variables | No framework lock-in, easy to reskin colors/type in one file (`src/index.css`), keeps bundle small. |
-| Backend   | Python + FastAPI          | You asked for a Python option. FastAPI gives you a typed, documented (`/docs`) API in ~120 lines, easy to extend with a real LLM. |
-| Chatbot   | Rule-based intent matcher, upgradeable to an LLM | Ships working out of the box with **zero API keys**. Swap in OpenAI/Anthropic in `backend/main.py` when you're ready (instructions inside). |
+---
 
-You do **not** need the backend to run the site. The chatbot works fully
-client-side (`frontend/src/utils/chatbotEngine.js`). The backend is there for
-when you want to (a) get real AI answers instead of rule-based ones, or
-(b) actually receive contact-form submissions by email/DB instead of
-`mailto:`/WhatsApp links.
+## Who I am
 
-## Project layout
+I'm **Seyi Code** — digital creator, full-stack engineer, and solo AI systems builder.
+
+I design and ship practical AI tools for small and mid-sized businesses (especially in African and global SME contexts): website chatbots, voice receptionists, lead automation, and custom workflows. I also build complete web platforms — church management systems, school ERPs, membership platforms, and more.
+
+I work 1:1. No agency overhead, no resold templates. The person you talk to is the person who builds and maintains the system.
+
+**Products & work**
+- AI chatbot / voice / automation packages for service businesses
+- Custom platforms (Church Platform, Force Schools ERP, NCOF membership platform, ModernBank prototype, and more)
+- Digital products for creators (prompt packs, content systems)
+
+---
+
+## This repository
+
+This is the source for my personal / agency landing site — a production-ready React + FastAPI app that showcases services, live demo chatbot, pricing, projects, and contact flow.
+
+### Features
+
+- Sticky navigation with smooth-scroll sections
+- Hero with clear value proposition and dual CTAs
+- Services, pricing tiers, FAQ, about, and projects
+- **Live chatbot** (rule-based + optional Claude-backed backend)
+- Contact form + WhatsApp / email deep links
+- Fully responsive, keyboard-accessible, respects `prefers-reduced-motion`
+- Single source of truth for all copy (`frontend/src/data/content.js`)
+
+### Tech stack
+
+| Layer     | Choice                | Why |
+|-----------|-----------------------|-----|
+| Frontend  | React 18 + Vite       | Fast, static-friendly, easy to deploy anywhere |
+| Styling   | Plain CSS + variables | No lock-in, tiny bundle, easy re-skin |
+| Backend   | Python + FastAPI      | Typed API, optional real LLM, contact handling |
+| Chatbot   | Rule-based + Claude   | Works offline by default; upgrade to LLM when ready |
+| Deploy    | Vercel                | Frontend + serverless-friendly backend options |
+
+---
+
+## Project structure
 
 ```
-ai-agency-app/
-├── frontend/                # React + Vite site
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.js
-│   └── src/
-│       ├── main.jsx         # React entry point
-│       ├── App.jsx          # Page layout / section order
-│       ├── index.css        # Design tokens + all styling
-│       ├── data/
-│       │   └── content.js   # ALL editable copy: services, pricing, about, contact
-│       ├── utils/
-│       │   └── chatbotEngine.js   # Rule-based chatbot logic + optional API hook
-│       └── components/
-│           ├── Navbar.jsx
-│           ├── Hero.jsx
-│           ├── Services.jsx
-│           ├── Chatbot.jsx
-│           ├── Pricing.jsx
-│           ├── About.jsx
-│           ├── Contact.jsx
-│           └── Footer.jsx
-└── backend/                 # Optional FastAPI service
-    ├── main.py               # /api/chat and /api/contact endpoints
-    ├── requirements.txt
-    └── .env.example
+seyi-qing/
+├── frontend/                  # React + Vite site
+│   ├── src/
+│   │   ├── data/content.js    # ALL editable copy (brand, services, pricing…)
+│   │   ├── components/        # Navbar, Hero, Services, Chatbot, etc.
+│   │   ├── utils/chatbotEngine.js
+│   │   └── index.css          # Design tokens + styles
+│   └── public/                # favicon, OG image, headshot
+├── backend/                   # Optional FastAPI service
+│   ├── main.py                # /api/chat + /api/contact
+│   └── requirements.txt
+├── package.json               # Root scripts (dev / build / preview)
+└── vercel.json
 ```
 
-## Running the frontend
+---
+
+## Getting started
+
+### Frontend only (recommended to start)
 
 ```bash
 cd frontend
 npm install
-npm run dev        # http://localhost:5173
+npm run dev          # http://localhost:5173
 ```
 
-Build for production:
+Production build:
 
 ```bash
-npm run build       # outputs static files to frontend/dist
-npm run preview      # preview the production build locally
+npm run build        # → frontend/dist
+npm run preview
 ```
 
-Deploy `frontend/dist` to Vercel/Netlify/any static host, exactly like the
-original site was deployed.
-
-## Running the backend (optional)
+### Backend (optional)
 
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
+source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env          # fill in an OpenAI/Anthropic key if you want real AI
-uvicorn main:app --reload     # http://localhost:8000, docs at /docs
+cp .env.example .env       # add ANTHROPIC_API_KEY for real AI replies
+uvicorn main:app --reload  # http://localhost:8000  ·  docs at /docs
 ```
 
-Then in `frontend/src/utils/chatbotEngine.js`, set `USE_BACKEND = true` and
-point `BACKEND_URL` at your running API. The frontend will POST each message
-to `/api/chat` instead of answering locally.
+Then in `frontend/src/utils/chatbotEngine.js` set `USE_BACKEND = true` and point `BACKEND_URL` at your API.
 
-## What's implemented (feature parity with the source site)
-
-- Sticky nav with smooth-scroll section links
-- Hero with headline, dual CTAs, and an animated "signal" diagram
-- "What I do" — 4 value props
-- Services — 6 offerings
-- **Live chatbot demo** — rule-based, understands pricing/services/voice
-  agents/automation/timeline/maintenance questions, with suggested prompts
-- Pricing — 3 tiers (Starter / Medium / Pro), monthly + one-time fee, "most
-  popular" highlight
-- About — bio + 3 stat badges
-- Contact — WhatsApp deep link, mailto link, and a working contact **form**
-  that posts to the FastAPI backend (falls back to opening the user's email
-  client if no backend is configured)
-- Fully responsive (mobile nav, stacked layout), keyboard-accessible,
-  respects `prefers-reduced-motion`
+---
 
 ## Making it yours
 
-Everything editable — your name, services, prices, phone number, email,
-bio — lives in **one file**: `frontend/src/data/content.js`. Swap the
-values there and every section updates. Colors and fonts live in
-`frontend/src/index.css` under `:root`.
+Everything brand-facing lives in **one place**:
 
-## Notes on the chatbot
+- **Copy & pricing** → `frontend/src/data/content.js`
+- **Colors & type** → `frontend/src/index.css` (`:root` variables)
+- **Meta / social** → `frontend/index.html` + `frontend/public/og.svg`
 
-The default chatbot is intentionally **not** wired to a paid LLM API, so the
-project runs immediately with no cost and no keys. It uses keyword/intent
-matching (see `chatbotEngine.js`) tuned to the same question types shown in
-the demo transcript (pricing, services, voice agents, timelines,
-maintenance). This is genuinely how a lot of "AI chatbot" landing-page demos
-are built in practice — cheap, instant, no API latency — and it's a
-reasonable production choice for a scripted FAQ bot. If you want open-ended
-GPT-style answers, flip on the FastAPI backend and add your API key; the
-hook is already there.
+Change the name, services, prices, or contact details there and the whole site updates.
+
+---
+
+## Live projects (examples)
+
+| Project              | Status | Stack                                      |
+|----------------------|--------|--------------------------------------------|
+| AI Receptionist Chatbot | Live | React · FastAPI · Claude                   |
+| Church Platform      | Live   | FastAPI · PostgreSQL · Next.js · Expo · Stripe |
+| Force Schools (ERP)  | Live   | Next.js · Prisma · TypeScript · Tailwind   |
+| NCOF Platform        | Live   | FastAPI · PostgreSQL · Next.js             |
+| ModernBank (prototype) | Live | Next.js · FastAPI                        |
+
+---
+
+## Contact
+
+- **WhatsApp** — [+1 312 487 9790](https://wa.me/13124879790)
+- **Email** — [logzmaster.biz@gmail.com](mailto:logzmaster.biz@gmail.com)
+
+---
+
+<div align="center">
+
+**Seyi Code** — AI systems that handle the repeats.
+
+*Built independently. No agency. No platform lock-in.*
+
+</div>
