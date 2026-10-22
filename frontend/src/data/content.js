@@ -8,9 +8,9 @@
  */
 
 export const brand = {
-  name: "Seyi Qing",
+  name: "Seyi Code",
   tagline: "AI systems for businesses",
-  logoText: "Seyi Qing",
+  logoText: "Seyi Code",
 };
 
 export const hero = {
@@ -70,7 +70,7 @@ export const pricing = [
 export const about = {
   heading: "Just me. No team, no templates.",
   paragraphs: [
-    "I'm Seyi Qing. I build the AI systems businesses use to stop doing the same task over and over — answering the same question, chasing the same lead, typing the same thing into a spreadsheet. I work alone, which means the person who builds your system is the person you're talking to.",
+    "I'm Seyi Code. I build the AI systems businesses use to stop doing the same task over and over — answering the same question, chasing the same lead, typing the same thing into a spreadsheet. I work alone, which means the person who builds your system is the person you're talking to.",
     "Nothing here comes off a shelf. I don't resell a platform with your logo slapped on it, and I don't hand you a system and disappear. If something in your business is repetitive enough that you've thought \"there has to be a better way\" — that's usually something I can build.",
   ],
   stats: [
